@@ -59,11 +59,26 @@
             from, to { opacity: 0; }
             50% { opacity: 1; }
         }
+        .blog-link {
+            display: block;
+            margin-top: 20px;
+            font-size: 0.5em;
+            color: #007bff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .blog-link:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         I am <span id="dynamicTextContainer" class="dynamic-text-container"><span id="dynamicText"></span><span class="cursor"></span></span>
+        <br>
+        <a href="https://blog.sayhi.moe" class="blog-link" target="_blank">My Blog</a>
     </div>
 
     <script>
