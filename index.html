@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人介绍</title>
+    <style>
+        @font-face {
+            font-family: '霞鹜文楷';
+            src: url('XiaowutextKai-Regular.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-image: url('https://pic1.imgdb.cn/item/6256d14e239250f7c598608a.jpg'); /* 设置背景图片 */
+            background-size: cover; /* 使背景图片覆盖整个屏幕 */
+            background-position: center; /* 居中背景图片 */
+            background-repeat: no-repeat; /* 防止背景图片重复 */
+            position: relative;
+            font-family: '霞鹜文楷', sans-serif; /* 设置字体为霞鹜文楷 */
+            font-size: 36px; /* 增加字体大小 */
+            color: black; /* 设置文本颜色为黑色以便在半透明背景下清晰可见 */
+        }
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.95); /* 半透明白色背景，10%透明度 */
+            z-index: -1; /* 确保背景在内容下方 */
+        }
+        .container {
+            text-align: center;
+        }
+        .dynamic-text-container {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: black;
+            color: white; /* 设置动态文本容器内的文本颜色为白色 */
+            line-height: 1.2; /* 调整行高以适应更大的字体 */
+            position: relative;
+        }
+        .cursor {
+            display: inline-block;
+            width: 19px; /* 增大光标的宽度 */
+            height: 3px; /* 增大光标的高度 */
+            background-color: white;
+            vertical-align: baseline; /* 确保光标与文本底端对齐 */
+            animation: blink-caret 0.75s step-end infinite;
+        }
+        @keyframes blink-caret {
+            from, to { opacity: 0; }
+            50% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        I am <span id="dynamicTextContainer" class="dynamic-text-container"><span id="dynamicText"></span><span class="cursor"></span></span>
+    </div>
+
+    <script>
+        const texts = ["Kevinishd", "洛雪樱", "Blogger","myself"];
+        let currentTextIndex = 0;
+        let charIndex = 0;
+
+        function typeWriter() {
+            const dynamicTextElement = document.getElementById('dynamicText');
+            const currentText = texts[currentTextIndex];
+
+            if (charIndex <= currentText.length) {
+                dynamicTextElement.textContent = currentText.substring(0, charIndex);
+                charIndex++;
+                setTimeout(typeWriter, 100); // 每100毫秒打一个字
+            } else {
+                setTimeout(eraseText, 2000); // 打完后停顿2秒开始擦除
+            }
+        }
+
+        function eraseText() {
+            const dynamicTextElement = document.getElementById('dynamicText');
+            const currentText = texts[currentTextIndex];
+
+            if (charIndex > 0) {
+                dynamicTextElement.textContent = currentText.substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(eraseText, 50); // 每50毫秒擦一个字
+            } else {
+                currentTextIndex = (currentTextIndex + 1) % texts.length; // 切换到下一个文本
+                setTimeout(typeWriter, 100); // 开始打下一个文本
+            }
+        }
+
+        // Start the animation
+        typeWriter();
+    </script>
+</body>
+</html>
+
+
+
